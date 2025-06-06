@@ -1,3 +1,26 @@
+/**
+ * MinHeap.h
+ * 
+ * This file defines a generic MinHeap class using a binary heap structure.
+ * The heap is implemented as a dynamic array (std::vector) and supports
+ * customizable comparison via a comparator (default: std::less).
+ * 
+ * Structure:
+ * - The heap is stored as a contiguous array (vector), where for any node at index i:
+ *     - Parent: (i - 1) / 2
+ *     - Left child: 2 * i + 1
+ *     - Right child: 2 * i + 2
+ * - Maintains the heap property: each parent is less than or equal to its children.
+ * 
+ * Complexity:
+ * - Insertion (push): O(log n)
+ * - Remove minimum (pop): O(log n)
+ * - Access minimum (top): O(1)
+ * - Decrease key: O(log n)
+ * - Heap construction from vector: O(n)
+ * - Space complexity: O(n), where n is the number of elements in the heap.
+ */
+
 #ifndef MINHEAP_H
 #define MINHEAP_H
 
