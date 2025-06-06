@@ -14,3 +14,6 @@ Data Structures in C++.
 ### Trees
 * Binary tree
 * Self-balancing binary tree
+
+### Heaps
+* Min heap
