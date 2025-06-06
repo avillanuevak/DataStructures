@@ -7,6 +7,15 @@
  * ################################################
  * 
  * ################################################
+ * COMPLEXITY
+ * 
+ * Time and Space Complexity:
+ * - All basic operations (get/set key, value, parent, left, right) are O(1) time and space.
+ * - Copy constructor and destructor are O(n), as they recursively copy or delete the entire subtree.
+ * - Height calculation (altura) is O(n) in the worst case (unbalanced tree), where n is the number of nodes in the subtree.
+ * - The node itself uses O(1) space, but a tree of n nodes uses O(n) space.
+ * 
+ * ################################################
  * ATRIBUTES
  * 
  * A tree node has a key called class KEY and a value called class VALUE. 
@@ -25,10 +34,37 @@
  * The left, right and parent pointers are set to nullptr.
  * 
  * NodeTree : This method is a copy constructor for the NodeTree class.
- * This constructor takes in one parameter 
+ * This constructor takes in one parameter, a reference to another NodeTree object.
+ * It copies the key and value, sets the parent pointer, and recursively copies the left and right subtrees if they exist.
  * 
+ * ~NodeTree : Destructor for the NodeTree class.
+ * Recursively deletes the left and right subtrees to free memory.
  * 
-*/
+ * MODIFIERS  #####################################
+ * 
+ * setParent : Sets the parent pointer of the node.
+ * setLeft   : Sets the left child pointer of the node.
+ * setRight  : Sets the right child pointer of the node.
+ * insereixVALUE : Sets the value of the node.
+ * 
+ * CONSULTORS #####################################
+ * 
+ * getKey    : Returns the key of the node.
+ * getValue  : Returns the value of the node.
+ * getParent : Returns the parent pointer.
+ * getLeft   : Returns the left child pointer.
+ * getRight  : Returns the right child pointer.
+ * 
+ * OPERATIONS #####################################
+ * 
+ * esArrel   : Returns true if the node is the root (parent is nullptr).
+ * teEsquerra: Returns true if the node has a left child.
+ * teDreta   : Returns true if the node has a right child.
+ * esExtern  : Returns true if the node is a leaf (no children).
+ * altura    : Returns the height of the node (1 for leaf, otherwise 1 + max height of children).
+ * operator==: Checks if two nodes are equal (same key and value).
+ * 
+ */
 
 #ifndef NodeTree_H
 #define NodeTree_H

@@ -1,65 +1,107 @@
 /**
  * @author Albert Villanueva Kosoy 
-*/
-
-/**
  * 
- * Binary search tree
+ * ################################################
+ * BINARY SEARCH TREE (BST). Defined with templates.
+ * This class is used as a standard Binary Search Tree.
+ * ################################################
  * 
- * If the tree is well balanced the complexity of its operations is O(log2(n)).
- * Si l'arbre està ben equilibrat, la complexitat de les seves operacions és de O(log2 n).
- * If the tree is well balanced the complexity of its operations is O(log2(n)).
+ * ################################################
+ * COMPLEXITY
+ * 
+ * Time and Space Complexity:
+ * - If the tree is well balanced, all main operations (insert, search, delete) are O(log n) time and O(1) space per operation.
+ * - If the tree is not balanced, the complexity can degrade to O(n) time per operation.
+ * - Tree traversals (preorder, inorder, postorder) are O(n) time.
+ * - The tree uses O(n) space for n nodes.
+ * 
+ * Si l'arbre està ben equilibrat, la complexitat de les seves operacions és de O(log n).
  * En canvi si no està equilibrat, la complexitat de les seves operacions és propera a O(n).
-*/
+ * 
+ * ################################################
+ * ATRIBUTES
+ * 
+ * A BST node has a key (class CLAU) and a value (class VALOR).
+ * It also has three pointers: parent, left child, and right child.
+ * 
+ * ################################################
+ * 
+ * ################################################
+ * METHODS
+ * 
+ * CONSTRUCTORS  ##################################
+ * 
+ * BST : Default constructor for the BST class. Initializes the tree as empty.
+ * 
+ * BST(const BST&) : Copy constructor. Copies all nodes recursively.
+ * 
+ * ~BST : Destructor. Recursively deletes all nodes.
+ * 
+ * MODIFIERS  #####################################
+ * 
+ * insereix : Inserts a key and value into the BST.
+ * arbreMirall : Converts the tree into its mirror.
+ * 
+ * CONSULTORS #####################################
+ * 
+ * buida : Returns true if the tree is empty.
+ * altura : Returns the height of the tree.
+ * valorDe : Returns the value associated with a key.
+ * conteClau : Checks if a key exists in the tree.
+ * imprimeixPreordre, imprimeixInordre, imprimeixPostordre : Print the tree in different orders.
+ * obteFullesArbre : Returns a list of all leaves on the left or right side.
+ * 
+ * ################################################
+ */
 
-#ifndef ARBREBST_H
-#define ARBREBST_H
-#include "NodeArbre.h"
+#ifndef BST_H
+#define BST_H
+#include "NodeTree.h"
 #include <iostream>
 #include <list>
 using namespace std;
 
 template <class CLAU, class VALOR>
-class ArbreBST {
+class BST {
  public:
-    ArbreBST(); // O(1) 
-    ArbreBST(const ArbreBST<CLAU, VALOR>& orig); // O(n) Ha de copiar cada element
-    virtual ~ArbreBST(); 
+    BST(); // O(1) 
+    BST(const BST<CLAU, VALOR>& orig); // O(n) Ha de copiar cada element
+    virtual ~BST(); 
     bool buida() const; // O(1)
     int altura() const; 
-    NodeArbre<CLAU,VALOR>* insereix(const CLAU& clau, const VALOR& value); // O(log 2 n), crida a cercar
+    NodeTree<CLAU,VALOR>* insereix(const CLAU& clau, const VALOR& value); // O(log 2 n), crida a cercar
     const VALOR& valorDe(const CLAU& clau) const; // O(log 2 n) també crida a la funcio cercar
-    void imprimeixPreordre(const NodeArbre<CLAU,VALOR>* n = nullptr) const; // O(n), ha d'imprimir tot l'arbre
-    void imprimeixInordre(const NodeArbre<CLAU,VALOR>* n = nullptr) const; // O(n)
-    void imprimeixPostordre(const NodeArbre<CLAU,VALOR>* n = nullptr) const; // O(n)
+    void imprimeixPreordre(const NodeTree<CLAU,VALOR>* n = nullptr) const; // O(n), ha d'imprimir tot l'arbre
+    void imprimeixInordre(const NodeTree<CLAU,VALOR>* n = nullptr) const; // O(n)
+    void imprimeixPostordre(const NodeTree<CLAU,VALOR>* n = nullptr) const; // O(n)
     bool conteClau(const CLAU& clau) const; 
     void arbreMirall(); 
-    list<NodeArbre<CLAU, VALOR>*> obteFullesArbre(bool esq) const;
+    list<NodeTree<CLAU, VALOR>*> obteFullesArbre(bool esq) const;
 protected:
-    NodeArbre<CLAU,VALOR>* arrel;
-    NodeArbre<CLAU,VALOR>* cercar(const CLAU& k) const; // Cerca fent servir cerca binària amb O(log2 n) si està equilibrat
+    NodeTree<CLAU,VALOR>* arrel;
+    NodeTree<CLAU,VALOR>* cercar(const CLAU& k) const; // Cerca fent servir cerca binària amb O(log2 n) si està equilibrat
 
 private:
     int _mida;
  /* Mètodes auxiliars definiu aquí els que necessiteu */
-    void obteFullesArbreAux(NodeArbre<CLAU, VALOR>* n, bool esq, list<NodeArbre<CLAU, VALOR>*>* llista)const;
-    void arbreMirallAux(NodeArbre<CLAU,VALOR> *n); // O(n), ja que només ha de recorrer tot l'arbre
-    NodeArbre<CLAU,VALOR> *cercarAux(NodeArbre<CLAU, VALOR> *node, const CLAU&K)const;
-    void preordre(const NodeArbre<CLAU,VALOR>* n) const;
-    void inordre(const NodeArbre<CLAU,VALOR>* n) const;
-    void postordre(const NodeArbre<CLAU,VALOR>* n) const;
+    void obteFullesArbreAux(NodeTree<CLAU, VALOR>* n, bool esq, list<NodeTree<CLAU, VALOR>*>* llista)const;
+    void arbreMirallAux(NodeTree<CLAU,VALOR> *n); // O(n), ja que només ha de recorrer tot l'arbre
+    NodeTree<CLAU,VALOR> *cercarAux(NodeTree<CLAU, VALOR> *node, const CLAU&K)const;
+    void preordre(const NodeTree<CLAU,VALOR>* n) const;
+    void inordre(const NodeTree<CLAU,VALOR>* n) const;
+    void postordre(const NodeTree<CLAU,VALOR>* n) const;
 };
 
 /**
  * Constructor senese paràmetres
 */
 template <class CLAU, class VALOR>
-ArbreBST<CLAU, VALOR>::ArbreBST(): _mida(0), arrel(nullptr){}
+BST<CLAU, VALOR>::BST(): _mida(0), arrel(nullptr){}
 
 template <class CLAU, class VALOR>
-ArbreBST<CLAU, VALOR>::ArbreBST(const ArbreBST<CLAU, VALOR>& orig){
+BST<CLAU, VALOR>::BST(const BST<CLAU, VALOR>& orig){
     if (orig.arrel) {
-        this->arrel = new NodeArbre<CLAU, VALOR>(*(orig.arrel));
+        this->arrel = new NodeTree<CLAU, VALOR>(*(orig.arrel));
     } else {
         this->arrel = nullptr;
     }
@@ -69,7 +111,7 @@ ArbreBST<CLAU, VALOR>::ArbreBST(const ArbreBST<CLAU, VALOR>& orig){
  * Destructor
 */
 template <class CLAU, class VALOR>
-ArbreBST<CLAU, VALOR>::~ArbreBST(){
+BST<CLAU, VALOR>::~BST(){
     delete arrel;
     cout << "\nArbre Esborrat\n" << endl;
 }
@@ -79,7 +121,7 @@ ArbreBST<CLAU, VALOR>::~ArbreBST(){
  * @return bool si està buit
 */
 template <class CLAU, class VALOR>
-bool ArbreBST<CLAU, VALOR>::buida() const{
+bool BST<CLAU, VALOR>::buida() const{
     return (this->arrel == nullptr); 
 }
 
@@ -88,31 +130,31 @@ bool ArbreBST<CLAU, VALOR>::buida() const{
  * @return int altura de l'arbre
 */
 template <class CLAU, class VALOR>
-int ArbreBST<CLAU, VALOR>::altura() const{
+int BST<CLAU, VALOR>::altura() const{
     return this->arrel->altura();
 }
 
 /**
  * Mètode que insereix una clau i un valor a l'arbre en forma de node en una posició ordenada per la clau
- * @return NodeArbre amb la clau i el valor dels paràmetres
+ * @return NodeTree amb la clau i el valor dels paràmetres
 */
 template <class CLAU, class VALOR>
-NodeArbre<CLAU,VALOR>* ArbreBST<CLAU, VALOR>::insereix(const CLAU& clau, const VALOR& value){
-    NodeArbre<CLAU, VALOR>* n = cercarAux(arrel, clau);
+NodeTree<CLAU,VALOR>* BST<CLAU, VALOR>::insereix(const CLAU& clau, const VALOR& value){
+    NodeTree<CLAU, VALOR>* n = cercarAux(arrel, clau);
     _mida++;
     if (n == nullptr){
-        arrel = new NodeArbre<CLAU, VALOR>(clau, value);
+        arrel = new NodeTree<CLAU, VALOR>(clau, value);
         return arrel;
     }
     else{
-        if (clau < n->obteClau()){
-            NodeArbre<CLAU, VALOR>* l = new NodeArbre<CLAU, VALOR>(clau, value);
+        if (clau < n->getKey()){
+            NodeTree<CLAU, VALOR>* l = new NodeTree<CLAU, VALOR>(clau, value);
             l->setParent(n);
             n->setLeft(l);
             return n->getLeft();
         }
         else {
-            NodeArbre<CLAU, VALOR>* r = new NodeArbre<CLAU, VALOR>(clau, value);
+            NodeTree<CLAU, VALOR>* r = new NodeTree<CLAU, VALOR>(clau, value);
             r->setParent(n);
             n->setRight(r);
             return n->getRight();
@@ -121,19 +163,19 @@ NodeArbre<CLAU,VALOR>* ArbreBST<CLAU, VALOR>::insereix(const CLAU& clau, const V
 }
 /**
  * Mètode que cerca un node en l'arbre amb l'identificador
- * @return NodeArbre el node amb la clau entrada
+ * @return NodeTree el node amb la clau entrada
 */
 template<class CLAU, class VALOR>
-NodeArbre<CLAU,VALOR>* ArbreBST<CLAU, VALOR>::cercar(const CLAU& k) const{
-    NodeArbre<CLAU, VALOR>* n = arrel;
+NodeTree<CLAU,VALOR>* BST<CLAU, VALOR>::cercar(const CLAU& k) const{
+    NodeTree<CLAU, VALOR>* n = arrel;
     while (n != nullptr){
-        if (n->obteClau() == k){
+        if (n->getKey() == k){
             return n;
         }
-        if (n->obteClau() < k){
+        if (n->getKey() < k){
             n = n->getRight();
         }
-        else if (n->obteClau() > k){
+        else if (n->getKey() > k){
             n = n->getLeft();
         }
     }
@@ -142,18 +184,18 @@ NodeArbre<CLAU,VALOR>* ArbreBST<CLAU, VALOR>::cercar(const CLAU& k) const{
 
 /**
  * Mètode auxiliar al mètode de cerca de l'arbre
- * @return NodeArbre 
+ * @return NodeTree 
 */
 template<class CLAU, class VALOR>
-NodeArbre<CLAU, VALOR>* ArbreBST<CLAU, VALOR>::cercarAux(NodeArbre<CLAU,VALOR>* n, const CLAU& clau) const{
+NodeTree<CLAU, VALOR>* BST<CLAU, VALOR>::cercarAux(NodeTree<CLAU,VALOR>* n, const CLAU& clau) const{
     if (n == nullptr || n->esExtern()){
-        if (n != nullptr && clau == n->obteClau()) throw logic_error("Ja existeix un artista amb l'identificador\n");
+        if (n != nullptr && clau == n->getKey()) throw logic_error("Ja existeix un artista amb l'identificador\n");
         return n;
     }
-    if (clau < n->obteClau()){
+    if (clau < n->getKey()){
         return (n->getLeft() == nullptr) ? n : cercarAux(n->getLeft(), clau);
     }
-    else if (clau > n->obteClau()){
+    else if (clau > n->getKey()){
         return (n->getRight() == nullptr) ? n: cercarAux(n->getRight(), clau);
     }
     else{
@@ -166,15 +208,15 @@ NodeArbre<CLAU, VALOR>* ArbreBST<CLAU, VALOR>::cercarAux(NodeArbre<CLAU,VALOR>* 
  * @return VALOR& amb la clau entrada
 */
 template <class CLAU, class VALOR>
-const VALOR& ArbreBST<CLAU, VALOR>::valorDe(const CLAU& clau) const{
-    return cercar(clau)->obteValor();
+const VALOR& BST<CLAU, VALOR>::valorDe(const CLAU& clau) const{
+    return cercar(clau)->getValue();
 }
 
 /**
  * Mètodes per imprimir per pantalla l'arbre en forma de llista en preordre
 */
 template <class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::imprimeixPreordre(const NodeArbre<CLAU,VALOR>* n) const{
+void BST<CLAU, VALOR>::imprimeixPreordre(const NodeTree<CLAU,VALOR>* n) const{
     cout << "Llista preordre [ ";
     if (n != nullptr) preordre(n);
     else preordre(arrel);
@@ -182,8 +224,8 @@ void ArbreBST<CLAU, VALOR>::imprimeixPreordre(const NodeArbre<CLAU,VALOR>* n) co
 }
 
 template <class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::preordre(const NodeArbre<CLAU,VALOR>* n) const{
-    cout << n->obteClau() << " ";
+void BST<CLAU, VALOR>::preordre(const NodeTree<CLAU,VALOR>* n) const{
+    cout << n->getKey() << " ";
     if (n->teEsquerra()){
         preordre(n->getLeft());
     }
@@ -196,7 +238,7 @@ void ArbreBST<CLAU, VALOR>::preordre(const NodeArbre<CLAU,VALOR>* n) const{
  * Mètodes per imprimir per pantalla l'arbre en forma de llista en inordre
 */
 template <class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::imprimeixInordre(const NodeArbre<CLAU,VALOR>* n) const{
+void BST<CLAU, VALOR>::imprimeixInordre(const NodeTree<CLAU,VALOR>* n) const{
     cout << "Llista inordre [ ";
     if (n != nullptr) inordre(n);
     else inordre(arrel);
@@ -204,11 +246,11 @@ void ArbreBST<CLAU, VALOR>::imprimeixInordre(const NodeArbre<CLAU,VALOR>* n) con
 }
 
 template <class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::inordre(const NodeArbre<CLAU,VALOR>* n) const{
+void BST<CLAU, VALOR>::inordre(const NodeTree<CLAU,VALOR>* n) const{
     if (n->teEsquerra()){
         inordre(n->getLeft());
     }
-    cout << n->obteClau() << " ";
+    cout << n->getKey() << " ";
     if (n->teDreta()){
         inordre(n->getRight());
     }
@@ -218,7 +260,7 @@ void ArbreBST<CLAU, VALOR>::inordre(const NodeArbre<CLAU,VALOR>* n) const{
  * Mètodes per imprimir per pantalla l'arbre en forma de llista en postordre
 */
 template <class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::imprimeixPostordre(const NodeArbre<CLAU,VALOR>* n) const{
+void BST<CLAU, VALOR>::imprimeixPostordre(const NodeTree<CLAU,VALOR>* n) const{
     cout << "Llista postordre [ ";
     if (n != nullptr) postordre(n);
     else postordre(arrel);
@@ -226,14 +268,14 @@ void ArbreBST<CLAU, VALOR>::imprimeixPostordre(const NodeArbre<CLAU,VALOR>* n) c
 }
 
 template <class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::postordre(const NodeArbre<CLAU,VALOR>* n) const{
+void BST<CLAU, VALOR>::postordre(const NodeTree<CLAU,VALOR>* n) const{
     if (n->teEsquerra()){
         postordre(n->getLeft());
     }
     if (n->teDreta()){
         postordre(n->getRight());
     }
-    cout << n->obteClau() << " ";
+    cout << n->getKey() << " ";
 }
 
 /**
@@ -241,7 +283,7 @@ void ArbreBST<CLAU, VALOR>::postordre(const NodeArbre<CLAU,VALOR>* n) const{
  * @return bool si existeix un node amb aquesta clau
 */
 template <class CLAU, class VALOR>
-bool ArbreBST<CLAU, VALOR>::conteClau(const CLAU& clau) const{
+bool BST<CLAU, VALOR>::conteClau(const CLAU& clau) const{
     return (cercar(clau) == nullptr)? false : true;
 }
 
@@ -249,16 +291,16 @@ bool ArbreBST<CLAU, VALOR>::conteClau(const CLAU& clau) const{
  * Mètodes que a partir de l'arbre actual el convertix en el seu mirall
 */
 template <class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::arbreMirall(){
+void BST<CLAU, VALOR>::arbreMirall(){
     (arrel != nullptr)? arbreMirallAux(arrel) : throw logic_error("Arbre buit\n");
 }
 
 template<class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::arbreMirallAux(NodeArbre<CLAU, VALOR>* n){
+void BST<CLAU, VALOR>::arbreMirallAux(NodeTree<CLAU, VALOR>* n){
     if (n != nullptr){
         arbreMirallAux(n->getLeft());
         arbreMirallAux(n->getRight());
-        NodeArbre<CLAU, VALOR>* temp = n->getRight();
+        NodeTree<CLAU, VALOR>* temp = n->getRight();
         if (n->teDreta() && n->teEsquerra()){
             n->setRight(n->getLeft());
             n->setLeft(temp);
@@ -276,17 +318,17 @@ void ArbreBST<CLAU, VALOR>::arbreMirallAux(NodeArbre<CLAU, VALOR>* n){
 
 /**
  * Mètodes que retornen una llista amb totes les fulles de l'arbre esquerra o dret entrat un boleà
- * @return list<NodeArbre<CLAU, VALOR>*> amb les fulles de l'arbre del costat entrat
+ * @return list<NodeTree<CLAU, VALOR>*> amb les fulles de l'arbre del costat entrat
 */
 template <class CLAU, class VALOR>
-list<NodeArbre<CLAU, VALOR>*> ArbreBST<CLAU, VALOR>::obteFullesArbre(bool esq) const{
-    list<NodeArbre<CLAU, VALOR>*> fulles;
+list<NodeTree<CLAU, VALOR>*> BST<CLAU, VALOR>::obteFullesArbre(bool esq) const{
+    list<NodeTree<CLAU, VALOR>*> fulles;
     obteFullesArbreAux(arrel, esq, &fulles);
     return fulles;
 }
 
 template <class CLAU, class VALOR>
-void ArbreBST<CLAU, VALOR>::obteFullesArbreAux(NodeArbre<CLAU, VALOR>* n, bool esq, list<NodeArbre<CLAU, VALOR>*>* llista) const{
+void BST<CLAU, VALOR>::obteFullesArbreAux(NodeTree<CLAU, VALOR>* n, bool esq, list<NodeTree<CLAU, VALOR>*>* llista) const{
     if (n == nullptr){
         llista->push_back(nullptr);
     }
@@ -307,4 +349,4 @@ void ArbreBST<CLAU, VALOR>::obteFullesArbreAux(NodeArbre<CLAU, VALOR>* n, bool e
     }
 }
 
-#endif /* ARBREBST_H */
+#endif /* BST_H */
