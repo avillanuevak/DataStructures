@@ -17,3 +17,8 @@ Data Structures in C++.
 
 ### Heaps
 * Min heap
+
+### Graphs
+* Adjacency List graph
+* Adjacency Matrix graph
+* HashTable list graph
